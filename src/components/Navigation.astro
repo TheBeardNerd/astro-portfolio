@@ -1,0 +1,147 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<div
+  class="fixed top-0 z-40 flex items-center justify-center w-full h-16 px-4 bg-white border-b border-gray-300 sm:px-6"
+>
+  <div class="flex items-center w-full max-w-screen-xl lg:w-3/4">
+    <Logo />
+
+    <div
+      id="hamburger"
+      class="z-50 flex flex-col items-center justify-between w-8 h-6 ml-auto transition-all duration-300 ease-in-out cursor-pointer"
+    >
+      <div
+        class="hamburger-bar w-full h-px transition-all duration-500 ease-in-out delay-500 bg-gray-700"
+      ></div>
+      <div
+        class="hamburger-bar w-full h-px transition-all duration-300 ease-in-out delay-300 bg-gray-700"
+      ></div>
+      <div
+        class="hamburger-bar w-full h-px transition-all duration-500 ease-in-out delay-500 bg-gray-700"
+      ></div>
+    </div>
+
+    <div
+      id="nav-menu"
+      class="fixed top-0 left-0 z-40 w-full h-screen transition-all duration-500 ease-in-out transform -translate-x-full bg-black bg-opacity-75"
+    >
+      <nav class="w-full h-full">
+        <div class="flex flex-col w-full h-full">
+          <a
+            href="/"
+            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-400 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
+            aria-label="Home"
+            data-index="1"
+            >Home</a
+          >
+          <a
+            href="/#skills"
+            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-500 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
+            aria-label="Skills"
+            data-index="2"
+            >Skills</a
+          >
+          <a
+            href="/resume"
+            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-600 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
+            aria-label="Resume"
+            >Resumé</a
+          >
+          <a
+            href="/#contact"
+            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-700 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
+            aria-label="Contact"
+            data-index="4"
+            >Contact</a
+          >
+          <div
+            class="nav-link flex items-center justify-center w-full transform -translate-x-full bg-teal-800 h-1/5"
+            data-index="5"
+          >
+            <a
+              href="https://twitter.com/TheBeardNerd"
+              target="_blank"
+              rel="noopener"
+              class="w-10 h-10 mr-8 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:mr-12 lg:w-14 lg:h-14"
+              aria-label="Twitter"
+            >
+              <Icon type="twitter" class="w-full h-full" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/traviswindsorcummings/"
+              target="_blank"
+              rel="noopener"
+              class="w-10 h-10 mr-8 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:mr-12 lg:w-14 lg:h-14"
+              aria-label="LinkedIn"
+            >
+              <Icon type="linkedin" class="w-full h-full" />
+            </a>
+            <a
+              href="https://github.com/TheBeardNerd"
+              target="_blank"
+              rel="noopener"
+              class="w-10 h-10 mr-8 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:mr-12 lg:w-14 lg:h-14"
+              aria-label="GitHub"
+            >
+              <Icon type="github" class="w-full h-full" />
+            </a>
+            <a
+              href="https://codepen.io/TravisWindsor-Cummings"
+              target="_blank"
+              rel="noopener"
+              class="w-10 h-10 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:w-14 lg:h-14"
+              aria-label="CodePen"
+            >
+              <Icon type="codepen" class="w-full h-full" />
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  let isOpen = false;
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function toggleNav() {
+    isOpen = !isOpen;
+
+    if (isOpen) {
+      hamburger?.classList.add('hamActive');
+      navMenu?.classList.add('navOpen');
+
+      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar');
+      hamburgerBars?.forEach(bar => bar.classList.add('activeBar'));
+
+      navLinks.forEach((link, index) => {
+        link.classList.remove('slideOut');
+        link.classList.add(`slide${index + 1}`);
+      });
+    } else {
+      hamburger?.classList.remove('hamActive');
+      navMenu?.classList.remove('navOpen');
+
+      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar');
+      hamburgerBars?.forEach(bar => bar.classList.remove('activeBar'));
+
+      navLinks.forEach((link, index) => {
+        link.classList.remove(`slide${index + 1}`);
+        link.classList.add('slideOut');
+      });
+    }
+  }
+
+  hamburger?.addEventListener('click', toggleNav);
+  navMenu?.addEventListener('click', () => {
+    if (isOpen) toggleNav();
+  });
+</script>

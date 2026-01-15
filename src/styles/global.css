@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts are loaded via the Layout component */
+
+/* Navigation styles */
+.hamActive {
+  @apply transform rotate-90;
+}
+
+.hamActive .activeBar {
+  @apply bg-white;
+}
+
+.hamActive .activeBar:nth-child(1) {
+  @apply transform translate-y-3 -rotate-45;
+}
+
+.hamActive .activeBar:nth-child(2) {
+  width: 0px;
+}
+
+.hamActive .activeBar:nth-child(3) {
+  @apply transform -translate-y-3 rotate-45;
+}
+
+.navOpen {
+  @apply transform translate-x-0;
+}
+
+.slide1 {
+  @apply transform translate-y-0 animate-slide-delay-1;
+}
+.slide2 {
+  @apply transform translate-y-0 animate-slide-delay-2;
+}
+.slide3 {
+  @apply transform translate-y-0 animate-slide-delay-3;
+}
+.slide4 {
+  @apply transform translate-y-0 animate-slide-delay-4;
+}
+.slide5 {
+  @apply transform translate-y-0 animate-slide-delay-5;
+}
+
+.slideOut {
+  @apply transform -translate-y-full animate-slideout;
+}
+
+nav .active {
+  @apply bg-gray-200 text-teal-600;
+}

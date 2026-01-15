@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Skills from '../components/Skills.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+
+<Layout>
+  <section
+    class="flex items-center justify-center px-4 pt-8 pb-24 md:pt-24 md:pb-32 sm:px-6 md:px-16"
+  >
+    <div class="w-full max-w-screen-lg lg:w-3/4">
+      <div class="flex flex-col items-center sm:mb-12 sm:flex-row">
+        <img
+          src="/images/travis_headshot.webp"
+          alt="Travis Windsor-Cummings Headshot"
+          class="w-3/4 max-w-xs mb-8 rounded shadow-lg sm:w-1/4 sm:mb-0 sm:mr-10 xl:mr-16"
+        />
+        <div class="w-full mb-6 text-left sm:mb-0">
+          <h1
+            class="mb-1 text-3xl font-extrabold tracking-wide text-teal-800 sm:mb-2 lg:mb-4 sm:text-5xl xl:text-6xl"
+          >
+            Hello. I'm Travis.
+          </h1>
+          <div class="text-xl text-gray-700 sm:text-3xl xl:text-4xl">
+            <span>I'm a</span>
+            <span class="text-teal-700">web developer, </span>
+            <span class="text-indigo-600">designer, </span>
+            <span class="text-red-700">podcaster, </span>
+            <span>and </span>
+            <span class="text-yellow-900">woodworker.</span>
+          </div>
+        </div>
+      </div>
+
+      <p
+        class="leading-relaxed tracking-wide text-left text-gray-700 sm:text-lg"
+      >
+        For most of my life I've been fascinated with the science and
+        engineering of computers, but I haven't pursued the field
+        professionally. In late 2017, a speaker at an event said something
+        that resonated with me. She said, "Make progress not perfection." It
+        inspired me to make intentional changes in my life, one of which is
+        pursuing, professionally, the things about which I am passionate.
+        Those things are design, art, and technology. This site is a testament
+        to that goal. This will be a space to experiment with new ideas, learn
+        about new and existing technologies, and give me a place to implement
+        my increasing skills as a software developer.
+      </p>
+    </div>
+  </section>
+
+  <Skills />
+
+  <ContactForm />
+</Layout>

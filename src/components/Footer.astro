@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+---
+
+<footer
+  class="fixed bottom-0 left-0 z-0 flex justify-center w-full h-32 px-4 py-6 bg-gray-800 sm:px-6"
+>
+  <div
+    class="flex flex-col items-center w-full max-w-screen-xl lg:w-3/4 sm:flex-row sm:justify-between sm:items-start"
+  >
+    <p class="mb-4 font-semibold tracking-wide text-white sm:mb-0">
+      &copy; {new Date().getFullYear()} Travis Windsor-Cummings
+    </p>
+    <div class="flex">
+      <a
+        href="https://twitter.com/TheBeardNerd"
+        target="_blank"
+        rel="noopener"
+        class="w-8 h-8 mr-8 text-white transition-colors delay-300 sm:mr-6 sm:w-6 sm:h-6 hover:text-teal-500"
+        aria-label="Twitter"
+      >
+        <Icon type="twitter" class="w-full h-full" />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/traviswindsorcummings/"
+        target="_blank"
+        rel="noopener"
+        class="w-8 h-8 mr-8 text-white transition-colors delay-300 sm:mr-6 sm:w-6 sm:h-6 hover:text-teal-500"
+        aria-label="LinkedIn"
+      >
+        <Icon type="linkedin" class="w-full h-full" />
+      </a>
+      <a
+        href="https://github.com/TheBeardNerd"
+        target="_blank"
+        rel="noopener"
+        class="w-8 h-8 mr-8 text-white transition-colors delay-300 sm:mr-6 sm:w-6 sm:h-6 hover:text-teal-500"
+        aria-label="GitHub"
+      >
+        <Icon type="github" class="w-full h-full" />
+      </a>
+      <a
+        href="https://codepen.io/TravisWindsor-Cummings"
+        target="_blank"
+        rel="noopener"
+        class="w-8 h-8 text-white transition-colors delay-300 sm:w-6 sm:h-6 hover:text-teal-500"
+        aria-label="CodePen"
+      >
+        <Icon type="codepen" class="w-full h-full" />
+      </a>
+    </div>
+  </div>
+</footer>
