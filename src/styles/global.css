@@ -29,24 +29,32 @@
   @apply transform translate-x-0;
 }
 
-.slide1 {
-  @apply transform translate-y-0 animate-slide-delay-1;
-}
-.slide2 {
-  @apply transform translate-y-0 animate-slide-delay-2;
-}
-.slide3 {
-  @apply transform translate-y-0 animate-slide-delay-3;
-}
-.slide4 {
-  @apply transform translate-y-0 animate-slide-delay-4;
-}
-.slide5 {
-  @apply transform translate-y-0 animate-slide-delay-5;
+.slideIn {
+  transform: translateX(0);
+  animation: slidein 0.3s ease-in-out 1 var(--slide-delay, 0.2s) both;
 }
 
 .slideOut {
-  @apply transform -translate-y-full animate-slideout;
+  transform: translateX(-100%);
+  animation: slideout 0.3s ease-in-out 1 both;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideout {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 nav .active {

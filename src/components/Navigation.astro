@@ -1,8 +1,39 @@
 ---
-import Logo from './Logo.astro';
-import Icon from './Icon.astro';
+import Logo from './Logo.astro'
+import Icon from './Icon.astro'
+import { SOCIAL_LINKS } from '../config/site'
 
-const currentPath = Astro.url.pathname;
+const NAV_ITEMS = [
+  {
+    label: 'Home',
+    href: '/',
+    ariaLabel: 'Home',
+    bgClass: 'bg-teal-400',
+  },
+  {
+    label: 'Skills',
+    href: '/#skills',
+    ariaLabel: 'Skills',
+    bgClass: 'bg-teal-500',
+  },
+  {
+    label: 'Resumé',
+    href: '/resume',
+    ariaLabel: 'Resume',
+    bgClass: 'bg-teal-600',
+  },
+  {
+    label: 'Contact',
+    href: '/#contact',
+    ariaLabel: 'Contact',
+    bgClass: 'bg-teal-700',
+  },
+] as const
+
+const navSocialLinkClass =
+  'w-10 h-10 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:w-14 lg:h-14'
+const navLinkBaseClass =
+  'nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl'
 ---
 
 <div
@@ -13,17 +44,23 @@ const currentPath = Astro.url.pathname;
 
     <div
       id="hamburger"
+      role="button"
+      tabindex="0"
+      aria-label="Toggle navigation menu"
       class="z-50 flex flex-col items-center justify-between w-8 h-6 ml-auto transition-all duration-300 ease-in-out cursor-pointer"
     >
       <div
         class="hamburger-bar w-full h-px transition-all duration-500 ease-in-out delay-500 bg-gray-700"
-      ></div>
+      >
+      </div>
       <div
         class="hamburger-bar w-full h-px transition-all duration-300 ease-in-out delay-300 bg-gray-700"
-      ></div>
+      >
+      </div>
       <div
         class="hamburger-bar w-full h-px transition-all duration-500 ease-in-out delay-500 bg-gray-700"
-      ></div>
+      >
+      </div>
     </div>
 
     <div
@@ -32,73 +69,36 @@ const currentPath = Astro.url.pathname;
     >
       <nav class="w-full h-full">
         <div class="flex flex-col w-full h-full">
-          <a
-            href="/"
-            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-400 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
-            aria-label="Home"
-            data-index="1"
-            >Home</a
-          >
-          <a
-            href="/#skills"
-            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-500 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
-            aria-label="Skills"
-            data-index="2"
-            >Skills</a
-          >
-          <a
-            href="/resume"
-            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-600 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
-            aria-label="Resume"
-            >Resumé</a
-          >
-          <a
-            href="/#contact"
-            class="nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 transform -translate-x-full bg-teal-700 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl"
-            aria-label="Contact"
-            data-index="4"
-            >Contact</a
-          >
+          {
+            NAV_ITEMS.map((item) => (
+              <a
+                href={item.href}
+                class:list={[navLinkBaseClass, item.bgClass]}
+                aria-label={item.ariaLabel}
+              >
+                {item.label}
+              </a>
+            ))
+          }
           <div
             class="nav-link flex items-center justify-center w-full transform -translate-x-full bg-teal-800 h-1/5"
-            data-index="5"
           >
-            <a
-              href="https://twitter.com/TheBeardNerd"
-              target="_blank"
-              rel="noopener"
-              class="w-10 h-10 mr-8 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:mr-12 lg:w-14 lg:h-14"
-              aria-label="Twitter"
-            >
-              <Icon type="twitter" class="w-full h-full" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/traviswindsorcummings/"
-              target="_blank"
-              rel="noopener"
-              class="w-10 h-10 mr-8 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:mr-12 lg:w-14 lg:h-14"
-              aria-label="LinkedIn"
-            >
-              <Icon type="linkedin" class="w-full h-full" />
-            </a>
-            <a
-              href="https://github.com/TheBeardNerd"
-              target="_blank"
-              rel="noopener"
-              class="w-10 h-10 mr-8 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:mr-12 lg:w-14 lg:h-14"
-              aria-label="GitHub"
-            >
-              <Icon type="github" class="w-full h-full" />
-            </a>
-            <a
-              href="https://codepen.io/TravisWindsor-Cummings"
-              target="_blank"
-              rel="noopener"
-              class="w-10 h-10 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:w-14 lg:h-14"
-              aria-label="CodePen"
-            >
-              <Icon type="codepen" class="w-full h-full" />
-            </a>
+            {
+              SOCIAL_LINKS.map((link, index) => (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class:list={[
+                    navSocialLinkClass,
+                    index !== SOCIAL_LINKS.length - 1 && 'mr-8 lg:mr-12',
+                  ]}
+                  aria-label={link.label}
+                >
+                  <Icon type={link.icon} class="w-full h-full" />
+                </a>
+              ))
+            }
           </div>
         </div>
       </nav>
@@ -107,41 +107,56 @@ const currentPath = Astro.url.pathname;
 </div>
 
 <script>
-  let isOpen = false;
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('nav-menu');
-  const navLinks = document.querySelectorAll('.nav-link');
+  let isOpen = false
+  const hamburger = document.getElementById('hamburger')
+  const navMenu = document.getElementById('nav-menu')
+  const navLinks = document.querySelectorAll<HTMLElement>('.nav-link')
+
+  function animateNavLinksIn() {
+    navLinks.forEach((link, index) => {
+      link.classList.remove('slideOut')
+      link.style.setProperty('--slide-delay', `${(index + 1) * 0.2}s`)
+      link.classList.add('slideIn')
+    })
+  }
+
+  function animateNavLinksOut() {
+    navLinks.forEach((link) => {
+      link.classList.remove('slideIn')
+      link.classList.add('slideOut')
+      link.style.removeProperty('--slide-delay')
+    })
+  }
 
   function toggleNav() {
-    isOpen = !isOpen;
+    isOpen = !isOpen
 
     if (isOpen) {
-      hamburger?.classList.add('hamActive');
-      navMenu?.classList.add('navOpen');
+      hamburger?.classList.add('hamActive')
+      navMenu?.classList.add('navOpen')
 
-      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar');
-      hamburgerBars?.forEach(bar => bar.classList.add('activeBar'));
-
-      navLinks.forEach((link, index) => {
-        link.classList.remove('slideOut');
-        link.classList.add(`slide${index + 1}`);
-      });
+      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar')
+      hamburgerBars?.forEach((bar) => bar.classList.add('activeBar'))
+      animateNavLinksIn()
     } else {
-      hamburger?.classList.remove('hamActive');
-      navMenu?.classList.remove('navOpen');
+      hamburger?.classList.remove('hamActive')
+      navMenu?.classList.remove('navOpen')
 
-      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar');
-      hamburgerBars?.forEach(bar => bar.classList.remove('activeBar'));
-
-      navLinks.forEach((link, index) => {
-        link.classList.remove(`slide${index + 1}`);
-        link.classList.add('slideOut');
-      });
+      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar')
+      hamburgerBars?.forEach((bar) => bar.classList.remove('activeBar'))
+      animateNavLinksOut()
     }
   }
 
-  hamburger?.addEventListener('click', toggleNav);
+  hamburger?.addEventListener('click', toggleNav)
+  hamburger?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      toggleNav()
+    }
+  })
+
   navMenu?.addEventListener('click', () => {
-    if (isOpen) toggleNav();
-  });
+    if (isOpen) toggleNav()
+  })
 </script>

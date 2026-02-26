@@ -1,0 +1,64 @@
+---
+import ResumeBulletList from './ResumeBulletList.astro'
+import type { ResumeItemData } from '../../data/resume'
+
+interface Props {
+  item: ResumeItemData
+}
+
+const { item } = Astro.props
+
+const titleTightClass =
+  'mb-2 text-2xl leading-tight tracking-wide text-gray-700 md:text-3xl'
+const roleClass = 'text-xl tracking-wide text-teal-800 md:text-2xl'
+const bodyTextClass = 'leading-relaxed tracking-wide text-gray-700'
+const bodyTextLgClass = `${bodyTextClass} md:text-lg`
+---
+
+<div>
+  <h3 class={titleTightClass}>{item.organization}</h3>
+
+  {
+    item.logo && (
+      <img
+        src={item.logo.src}
+        alt={item.logo.alt}
+        class={item.logo.class ?? 'object-contain w-32 h-16 mb-2 mr-8'}
+      />
+    )
+  }
+
+  {
+    item.entries.map((entry, index) => (
+      <div>
+        {index > 0 && item.divideEntries && <hr class="my-6 sm:my-8" />}
+
+        {entry.role && (
+          <h4 class:list={[roleClass, entry.roleClass]}>{entry.role}</h4>
+        )}
+        {entry.date && (
+          <p class:list={[bodyTextLgClass, entry.dateClass]}>{entry.date}</p>
+        )}
+
+        {entry.description && (
+          <p class:list={[bodyTextClass, entry.descriptionClass]}>
+            {entry.description}
+          </p>
+        )}
+
+        {entry.link && (
+          <a
+            href={entry.link.href}
+            class="text-teal-600 underline transition-colors duration-300 hover:text-teal-500"
+          >
+            {entry.link.label}
+          </a>
+        )}
+
+        {entry.bullets && entry.bullets.length > 0 && (
+          <ResumeBulletList bullets={entry.bullets} />
+        )}
+      </div>
+    ))
+  }
+</div>

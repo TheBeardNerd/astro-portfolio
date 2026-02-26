@@ -1,57 +1,15 @@
 ---
-import '../styles/global.css';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
+import '../styles/global.css'
+import Navigation from '../components/Navigation.astro'
+import Footer from '../components/Footer.astro'
+import SeoHead from '../components/seo/SeoHead.astro'
 
 interface Props {
-  title?: string;
-  description?: string;
+  title?: string
+  description?: string
 }
 
-const {
-  title = 'Web Developer, Designer, Podcaster, Woodworker',
-  description = "Hello. I'm Travis. I'm a web developer, designer, podcaster, and woodworker."
-} = Astro.props;
-
-const fullTitle = `Travis Windsor-Cummings | ${title}`;
-const imageUrl = 'https://windsor-cummings.com/images/travis_headshot.webp';
-const siteUrl = 'https://windsor-cummings.com';
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  url: 'https://www.windsor-cummings.com',
-  givenName: 'Travis',
-  familyName: 'Windsor-Cummings',
-  jobTitle: 'Web Developer',
-  email: 'travis@windsor-cummings.com',
-  birthDate: '1987-07-26T10:00:00.000Z',
-  nationality: 'United States of America',
-  knowsLanguage: 'English',
-  homeLocation: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Memphis',
-    addressRegion: 'TN',
-  },
-  gender: 'Male',
-  alumniOf: {
-    '@type': 'Organization',
-    name: 'Tech901',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Memphis',
-      addressRegion: 'Tennessee',
-      postalCode: '38104',
-      streetAddress: '1350 Concourse Ave. Suite 375',
-    },
-  },
-  sameAs: [
-    'https://github.com/TheBeardNerd',
-    'https://codepen.io/TravisWindsor-Cummings',
-    'https://twitter.com/TheBeardNerd',
-    'https://www.linkedin.com/in/traviswindsorcummings/',
-  ],
-};
+const { title, description } = Astro.props
 ---
 
 <!doctype html>
@@ -61,39 +19,15 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    <!-- Primary Meta Tags -->
-    <title>{fullTitle}</title>
-    <meta name="description" content={description} />
-
-    <!-- Google / Schema.org Meta Tags -->
-    <meta itemprop="name" content="Travis Windsor-Cummings" />
-    <meta itemprop="description" content={description} />
-    <meta itemprop="image" content={imageUrl} />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content="Travis Windsor-Cummings" />
-    <meta property="og:description" content={description} />
-    <meta property="og:image:url" name="image" content={imageUrl} />
-    <meta property="og:image:alt" content="A headshot for Travis Windsor-Cummings" />
-    <meta property="og:image:type" content="image/webp" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={siteUrl} />
-    <meta name="twitter:title" content="Travis Windsor-Cummings" />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={imageUrl} />
-    <meta name="twitter:image:alt" content="A headshot for Travis Windsor-Cummings" />
+    <SeoHead title={title} description={description} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300;400;600;700&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Palanquin+Dark:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
-
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300;400;600;700&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Palanquin+Dark:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
 
     <meta name="generator" content={Astro.generator} />
   </head>

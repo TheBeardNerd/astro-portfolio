@@ -27,6 +27,24 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Validate full CI gate locally (format + type/build)
+npm run ci
+
+# Lint project files
+npm run lint
+
+# Run recommended Astro accessibility lint profile (faster local dev)
+npm run lint:a11y
+
+# Run strict Astro accessibility lint profile (used by CI)
+npm run lint:a11y:strict
+
+# Check formatting only
+npm run format:check
+
+# Auto-format files
+npm run format
 ```
 
 ## Deployment

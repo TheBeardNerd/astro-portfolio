@@ -1,5 +1,9 @@
 ---
-import Icon from './Icon.astro';
+import Icon from './Icon.astro'
+import { SOCIAL_LINKS } from '../config/site'
+
+const socialLinkClass =
+  'w-8 h-8 text-white transition-colors delay-300 sm:w-6 sm:h-6 hover:text-teal-500'
 ---
 
 <footer
@@ -12,42 +16,22 @@ import Icon from './Icon.astro';
       &copy; {new Date().getFullYear()} Travis Windsor-Cummings
     </p>
     <div class="flex">
-      <a
-        href="https://twitter.com/TheBeardNerd"
-        target="_blank"
-        rel="noopener"
-        class="w-8 h-8 mr-8 text-white transition-colors delay-300 sm:mr-6 sm:w-6 sm:h-6 hover:text-teal-500"
-        aria-label="Twitter"
-      >
-        <Icon type="twitter" class="w-full h-full" />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/traviswindsorcummings/"
-        target="_blank"
-        rel="noopener"
-        class="w-8 h-8 mr-8 text-white transition-colors delay-300 sm:mr-6 sm:w-6 sm:h-6 hover:text-teal-500"
-        aria-label="LinkedIn"
-      >
-        <Icon type="linkedin" class="w-full h-full" />
-      </a>
-      <a
-        href="https://github.com/TheBeardNerd"
-        target="_blank"
-        rel="noopener"
-        class="w-8 h-8 mr-8 text-white transition-colors delay-300 sm:mr-6 sm:w-6 sm:h-6 hover:text-teal-500"
-        aria-label="GitHub"
-      >
-        <Icon type="github" class="w-full h-full" />
-      </a>
-      <a
-        href="https://codepen.io/TravisWindsor-Cummings"
-        target="_blank"
-        rel="noopener"
-        class="w-8 h-8 text-white transition-colors delay-300 sm:w-6 sm:h-6 hover:text-teal-500"
-        aria-label="CodePen"
-      >
-        <Icon type="codepen" class="w-full h-full" />
-      </a>
+      {
+        SOCIAL_LINKS.map((link, index) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              socialLinkClass,
+              index !== SOCIAL_LINKS.length - 1 && 'mr-8 sm:mr-6',
+            ]}
+            aria-label={link.label}
+          >
+            <Icon type={link.icon} class="w-full h-full" />
+          </a>
+        ))
+      }
     </div>
   </div>
 </footer>

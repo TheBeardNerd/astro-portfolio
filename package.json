@@ -6,17 +6,28 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "typecheck": "astro check",
+    "lint": "eslint .",
+    "lint:a11y": "eslint --config eslint.a11y.recommended.config.mjs .",
+    "lint:a11y:strict": "eslint --config eslint.a11y.config.mjs .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "ci": "npm run format:check && npm run lint && npm run lint:a11y:strict && npm run build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.17.3",
-    "sass": "^1.49.8",
     "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "@eslint/js": "^9.39.3",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^9.39.3",
+    "eslint-plugin-astro": "^1.6.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "prettier": "^3.0.0",
     "prettier-plugin-astro": "^0.14.0"
   },

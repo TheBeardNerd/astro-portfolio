@@ -1,0 +1,47 @@
+---
+import { buildSeoMetadata, getPersonJsonLd } from '../../lib/seo'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+
+const seo = buildSeoMetadata({ title, description })
+const personJsonLd = getPersonJsonLd()
+---
+
+<title>{seo.fullTitle}</title>
+<meta name="description" content={seo.description} />
+
+<meta itemprop="name" content={seo.siteName} />
+<meta itemprop="description" content={seo.description} />
+<meta itemprop="image" content={seo.imageUrl} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={seo.siteUrl} />
+<meta property="og:title" content={seo.siteName} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:image:url" name="image" content={seo.imageUrl} />
+<meta
+  property="og:image:alt"
+  content="A headshot for Travis Windsor-Cummings"
+/>
+<meta property="og:image:type" content="image/webp" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={seo.siteUrl} />
+<meta name="twitter:title" content={seo.siteName} />
+<meta name="twitter:description" content={seo.description} />
+<meta name="twitter:image" content={seo.imageUrl} />
+<meta
+  name="twitter:image:alt"
+  content="A headshot for Travis Windsor-Cummings"
+/>
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(personJsonLd)}
+/>
