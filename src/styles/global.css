@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config '../../tailwind.config.mjs';
+@import 'tailwindcss';
 
 /* Google Fonts are loaded via the Layout component */
 
@@ -29,31 +28,35 @@
   @apply transform translate-x-0;
 }
 
+.nav-link {
+  translate: -100%;
+}
+
 .slideIn {
-  transform: translateX(0);
+  translate: 0;
   animation: slidein 0.3s ease-in-out 1 var(--slide-delay, 0.2s) both;
 }
 
 .slideOut {
-  transform: translateX(-100%);
+  translate: -100%;
   animation: slideout 0.3s ease-in-out 1 both;
 }
 
 @keyframes slidein {
   from {
-    transform: translateX(-100%);
+    translate: -100%;
   }
   to {
-    transform: translateX(0);
+    translate: 0;
   }
 }
 
 @keyframes slideout {
   from {
-    transform: translateX(0);
+    translate: 0;
   }
   to {
-    transform: translateX(-100%);
+    translate: -100%;
   }
 }
 
