@@ -1,0 +1,131 @@
+---
+import BracketHeader from './blueprint/BracketHeader.astro'
+
+const milestones = [
+  {
+    date: 'MEMPHIS, TN',
+    title: 'Memphis Roots',
+    description:
+      'Born and raised in Memphis. The city shaped my work ethic, my values, and my love of basketball — long before I knew any of that would matter.',
+    type: 'ORIGIN',
+    typeColor: 'amber',
+  },
+  {
+    date: 'PRE-2010',
+    title: 'Building Work Ethic',
+    description:
+      'Restaurant kitchens, warehouse assembly lines, manual labor. Hard work in unglamorous conditions taught me how to show up every day and get things done — a foundation that still holds.',
+    type: 'PRE-TECH',
+    duration: 'MULTI-YR',
+    typeColor: 'amber',
+  },
+  {
+    date: '2010–2013',
+    title: 'First Tech-Adjacent Role',
+    description:
+      'As a Wire Technician for AT&T Uverse, I installed and maintained internet, TV, and phone services. My first real look at the technology infrastructure underneath everyday life.',
+    type: 'TECH-ADJACENT',
+    duration: '3 YRS',
+    typeColor: 'amber',
+  },
+  {
+    date: '2014–2019',
+    title: 'Five Years on the Freight Yard',
+    description:
+      'Hostler at Estes Express Lines — moving trailers with precision and focus. Stable, but restless. Started taking community college classes. Not sure where I was headed, just sure I wanted more.',
+    type: 'PRE-TECH',
+    duration: '5 YRS',
+    typeColor: 'amber',
+  },
+  {
+    date: 'SEP 2018',
+    title: 'The Spark',
+    description:
+      "My oldest brother, already enrolled in Tech901's Code 1.0 bootcamp, invited me to join him. I said yes — and something clicked. I wasn't just learning to code. I discovered I genuinely loved solving these kinds of problems.",
+    type: 'INFLECTION',
+    typeColor: 'steel',
+  },
+  {
+    date: 'JUL 2019',
+    title: 'First Dev Role',
+    description:
+      'After finishing Tech901 and sending out dozens of resumes, a connection reached out about a front-end developer role at Elite Deals. HTML, CSS, JavaScript, Vue.js, Laravel. Real skills, real systems.',
+    type: 'CAREER',
+    duration: '3 YRS',
+    typeColor: 'steel',
+  },
+  {
+    date: 'APR 2022',
+    title: 'The Grizzlies Call',
+    description:
+      "A Tech901 instructor reached out and asked if I'd be interested in working for the Memphis Grizzlies. My hometown team. A lifelong basketball fan. I couldn't say no — and I haven't looked back.",
+    type: 'CAREER',
+    duration: 'PRESENT',
+    typeColor: 'steel',
+  },
+]
+---
+
+<div class="w-full">
+  <BracketHeader
+    as="h2"
+    title="Build Log"
+    meta="SUBJECT: T. WINDSOR-CUMMINGS"
+    class="mb-12"
+    data-animate="from-left"
+  />
+
+  <div class="relative">
+    <!-- Amber margin line -->
+    <div
+      class="build-log-line absolute top-0 left-0 w-px bg-bp-amber md:left-[18%]"
+      aria-hidden="true"
+    >
+    </div>
+
+    <ol class="list-none p-0 m-0 space-y-0">
+      {
+        milestones.map((m, index) => (
+          <li
+            class="relative flex flex-col md:flex-row gap-0 md:gap-0 pb-12 last:pb-0"
+            data-animate="fade"
+            data-animate-delay={String(index * 80)}
+          >
+            <div class="md:w-[18%] pl-4 md:pl-0 md:pr-8 md:text-right shrink-0 mb-2 md:mb-0">
+              <span
+                class:list={[
+                  'font-mono text-3xl md:text-4xl leading-none font-bold',
+                  m.typeColor === 'steel' ? 'text-bp-steel' : 'text-bp-amber',
+                ]}
+              >
+                {m.date}
+              </span>
+            </div>
+
+            <div
+              class="hidden md:block absolute left-[18%] top-3 w-3 h-px bg-bp-amber"
+              aria-hidden="true"
+            />
+
+            <div class="pl-8 md:pl-10 flex-1 border-l border-bp-border md:border-0">
+              <h3 class="font-display text-2xl text-bp-text mb-2">{m.title}</h3>
+              <p class="text-bp-text opacity-75 leading-relaxed text-sm md:text-base mb-3 max-w-2xl">
+                {m.description}
+              </p>
+              <div class="flex gap-4 font-mono text-xs tracking-widest">
+                <span class="text-bp-steel">
+                  TYPE: <span class="text-bp-steel">{m.type}</span>
+                </span>
+                {m.duration && (
+                  <span class="text-bp-steel">
+                    DURATION: <span class="text-bp-steel">{m.duration}</span>
+                  </span>
+                )}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</div>

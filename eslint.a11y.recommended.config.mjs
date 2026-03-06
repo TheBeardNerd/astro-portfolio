@@ -3,7 +3,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import eslintPluginAstro from 'eslint-plugin-astro'
 
 export default defineConfig([
-  globalIgnores(['dist/', '.astro/', 'node_modules/']),
+  globalIgnores(['dist/', '.astro/', 'node_modules/', '.agents/', '.claude/']),
   {
     files: ['**/*.{js,mjs,cjs}'],
     ...js.configs.recommended,

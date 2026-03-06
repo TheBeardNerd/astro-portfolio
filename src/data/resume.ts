@@ -34,6 +34,27 @@ export const RESUME_SECTIONS: ResumeSectionData[] = [
     title: 'Experience',
     items: [
       {
+        organization: 'Memphis Grizzlies',
+        logo: {
+          src: '/images/logos/MG_PrimaryIcon_RGB_FullColor.png',
+          alt: 'Memphis Grizzlies Logo',
+          class: 'object-contain w-32 h-16 mb-6 sm:mb-0 sm:mr-8',
+        },
+        entries: [
+          {
+            role: 'Software Engineer',
+            date: 'April 2022 — Present',
+            bullets: [
+              'ensuring continuity and stability across a growing volume of ticketing, marketing, community, and live entertainment initiatives.',
+              'Supported marketing campaigns across landing pages, data extensions, automations, forms, QR codes, and advertising placements, while keeping the underlying technical foundation reliable and scalable as demand and complexity have increased.',
+              'Partnered closely with Marketing, Partnerships, Community, and Live Entertainment to translate evolving business needs into practical technical solutions, with consistent attention to data accuracy, accessibility, compliance, and delivery timelines.',
+              'Continuing education in current and future technologies that could benefit the company.',
+              'HTML, CSS, JavaScript, React, React Native, Next.js, SQL (Various Flavors), Salesforce Marketing Cloud, AWS Services',
+            ],
+          },
+        ],
+      },
+      {
         organization: 'Elite Deals',
         logo: {
           src: '/images/logos/ED-circle-logo.png',
@@ -43,7 +64,7 @@ export const RESUME_SECTIONS: ResumeSectionData[] = [
         entries: [
           {
             role: 'Front End Developer',
-            date: 'July 2019 — Present',
+            date: 'July 2019 — April 2022',
             bullets: [
               "Build and maintain the company's visual front-end elements and web assets according to internal design specifications and project requirements.",
               'Continuing education in current and future technologies that could benefit the company.',
@@ -116,8 +137,6 @@ export const RESUME_SECTIONS: ResumeSectionData[] = [
   },
   {
     title: 'Certifications',
-    bodyClass:
-      'px-4 pt-8 pb-8 mb-8 border border-gray-200 rounded-b-sm md:px-8',
     items: [
       {
         organization: 'CompTIA',
@@ -163,7 +182,6 @@ export const RESUME_SECTIONS: ResumeSectionData[] = [
   },
   {
     title: 'Community Service',
-    bodyClass: 'px-4 pt-8 pb-12 border border-gray-200 rounded-b-sm md:px-8',
     items: [
       {
         organization: 'Faith Presbyterian Germantown',

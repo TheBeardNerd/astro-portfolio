@@ -1,0 +1,81 @@
+---
+
+---
+
+<!-- Blueprint registration-mark cursor (desktop only) -->
+<div id="bp-cursor" aria-hidden="true" style="width: 20px; height: 20px;">
+  <svg
+    id="bp-cursor-svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style="overflow: visible; transition: width 150ms ease-out, height 150ms ease-out;"
+  >
+    <!-- Circle -->
+    <circle cx="10" cy="10" r="4" stroke="#C9901A" stroke-width="1.5"></circle>
+    <!-- Top tick -->
+    <line x1="10" y1="0" x2="10" y2="5" stroke="#C9901A" stroke-width="1.5"
+    ></line>
+    <!-- Bottom tick -->
+    <line x1="10" y1="15" x2="10" y2="20" stroke="#C9901A" stroke-width="1.5"
+    ></line>
+    <!-- Left tick -->
+    <line x1="0" y1="10" x2="5" y2="10" stroke="#C9901A" stroke-width="1.5"
+    ></line>
+    <!-- Right tick -->
+    <line x1="15" y1="10" x2="20" y2="10" stroke="#C9901A" stroke-width="1.5"
+    ></line>
+  </svg>
+</div>
+
+<script>
+  const cursor = document.getElementById('bp-cursor')
+  const svg = document.getElementById('bp-cursor-svg')
+
+  if (cursor && svg && window.matchMedia('(pointer: fine)').matches) {
+    let mouseX = window.innerWidth / 2
+    let mouseY = window.innerHeight / 2
+    let curX = mouseX
+    let curY = mouseY
+
+    document.body.style.cursor = 'none'
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+    })
+
+    document
+      .querySelectorAll(
+        'a, button, input, textarea, select, [role="button"], label',
+      )
+      .forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          svg.setAttribute('width', '32')
+          svg.setAttribute('height', '32')
+          svg.setAttribute('viewBox', '0 0 32 32')
+        })
+        el.addEventListener('mouseleave', () => {
+          svg.setAttribute('width', '20')
+          svg.setAttribute('height', '20')
+          svg.setAttribute('viewBox', '0 0 20 20')
+        })
+      })
+
+    function lerp(a: number, b: number, t: number) {
+      return a + (b - a) * t
+    }
+
+    function tick() {
+      curX = lerp(curX, mouseX, 0.14)
+      curY = lerp(curY, mouseY, 0.14)
+      cursor.style.left = curX + 'px'
+      cursor.style.top = curY + 'px'
+      requestAnimationFrame(tick)
+    }
+
+    tick()
+  }
+</script>

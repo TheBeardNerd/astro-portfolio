@@ -2,23 +2,15 @@
 interface Props {
   bullets: string[]
 }
-
 const { bullets } = Astro.props
-
-const bodyTextClass = 'leading-relaxed tracking-wide text-gray-700'
-const bulletItemClass = `pl-2 mb-3 ${bodyTextClass}`
-const bulletItemLastClass = `pl-2 ${bodyTextClass}`
 ---
 
-<ul class="ml-4 list-disc">
+<ul class="mt-3 space-y-2 list-none p-0">
   {
-    bullets.map((bullet, index) => (
-      <li
-        class={
-          index === bullets.length - 1 ? bulletItemLastClass : bulletItemClass
-        }
-      >
-        {bullet}
+    bullets.map((bullet) => (
+      <li class="flex gap-3 text-sm text-bp-text opacity-75 leading-relaxed">
+        <span class="text-bp-amber shrink-0 mt-px">→</span>
+        <span>{bullet}</span>
       </li>
     ))
   }

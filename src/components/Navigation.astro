@@ -1,109 +1,120 @@
 ---
-import Logo from './Logo.astro'
 import Icon from './Icon.astro'
 import { SOCIAL_LINKS } from '../config/site'
 
 const NAV_ITEMS = [
-  {
-    label: 'Home',
-    href: '/',
-    ariaLabel: 'Home',
-    bgClass: 'bg-teal-400',
-  },
-  {
-    label: 'Skills',
-    href: '/#skills',
-    ariaLabel: 'Skills',
-    bgClass: 'bg-teal-500',
-  },
-  {
-    label: 'Resumé',
-    href: '/resume',
-    ariaLabel: 'Resume',
-    bgClass: 'bg-teal-600',
-  },
-  {
-    label: 'Contact',
-    href: '/#contact',
-    ariaLabel: 'Contact',
-    bgClass: 'bg-teal-700',
-  },
+  { label: 'Story', href: '/#story', ariaLabel: 'My Story' },
+  { label: 'Skills', href: '/#skills', ariaLabel: 'Skills' },
+  { label: 'Résumé', href: '/resume', ariaLabel: 'Resume' },
+  { label: 'Contact', href: '/#contact', ariaLabel: 'Contact' },
 ] as const
-
-const navSocialLinkClass =
-  'w-10 h-10 text-white transition-colors duration-300 hover:text-gray-800 sm:w-12 sm:h-12 lg:w-14 lg:h-14'
-const navLinkBaseClass =
-  'nav-link flex items-center justify-center w-full text-4xl text-white transition-colors duration-300 h-1/5 hover:text-gray-800 sm:text-5xl lg:text-6xl'
 ---
 
-<div
-  class="fixed top-0 z-40 flex items-center justify-center w-full h-16 px-4 bg-white border-b border-gray-300 sm:px-6"
+<!-- Desktop + Mobile header bar -->
+<header
+  class="fixed top-0 z-40 flex items-center justify-center w-full h-14 px-6 border-b border-bp-border"
+  style="background: rgba(11,14,17,0.85); backdrop-filter: blur(8px);"
 >
-  <div class="flex items-center w-full max-w-screen-xl lg:w-3/4">
-    <Logo />
+  <div class="flex items-center w-full max-w-screen-xl">
+    <!-- Logo / initials -->
+    <a
+      href="/"
+      class="font-display text-2xl text-bp-text tracking-widest hover:text-bp-amber transition-colors duration-200"
+      aria-label="Home — Travis Windsor-Cummings"
+    >
+      TWC
+    </a>
 
+    <!-- Desktop nav links -->
+    <nav
+      aria-label="Primary navigation"
+      class="hidden md:flex items-center gap-8 ml-auto"
+    >
+      {
+        NAV_ITEMS.map((item) => (
+          <a
+            href={item.href}
+            aria-label={item.ariaLabel}
+            class="nav-text-link font-mono text-xs tracking-widest uppercase text-bp-text hover:text-bp-amber transition-colors duration-200 pb-px"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Mobile hamburger -->
     <div
       id="hamburger"
       role="button"
       tabindex="0"
       aria-label="Toggle navigation menu"
-      class="z-50 flex flex-col items-center justify-between w-8 h-6 ml-auto transition-all duration-300 ease-in-out cursor-pointer"
+      aria-expanded="false"
+      class="z-50 flex flex-col items-center justify-center w-8 h-8 ml-auto md:hidden cursor-pointer gap-2"
     >
       <div
-        class="hamburger-bar w-full h-px transition-all duration-500 ease-in-out delay-500 bg-gray-700"
+        class="hamburger-bar w-6 h-px bg-bp-text transition-all duration-300 origin-center"
       >
       </div>
       <div
-        class="hamburger-bar w-full h-px transition-all duration-300 ease-in-out delay-300 bg-gray-700"
+        class="hamburger-bar w-6 h-px bg-bp-text transition-all duration-300"
       >
       </div>
       <div
-        class="hamburger-bar w-full h-px transition-all duration-500 ease-in-out delay-500 bg-gray-700"
+        class="hamburger-bar w-6 h-px bg-bp-text transition-all duration-300 origin-center"
       >
       </div>
-    </div>
-
-    <div
-      id="nav-menu"
-      class="fixed top-0 left-0 z-40 w-full h-screen transition-all duration-500 ease-in-out transform -translate-x-full bg-black/75"
-    >
-      <nav class="w-full h-full">
-        <div class="flex flex-col w-full h-full">
-          {
-            NAV_ITEMS.map((item) => (
-              <a
-                href={item.href}
-                class:list={[navLinkBaseClass, item.bgClass]}
-                aria-label={item.ariaLabel}
-              >
-                {item.label}
-              </a>
-            ))
-          }
-          <div
-            class="nav-link flex items-center justify-center w-full bg-teal-800 h-1/5"
-          >
-            {
-              SOCIAL_LINKS.map((link, index) => (
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class:list={[
-                    navSocialLinkClass,
-                    index !== SOCIAL_LINKS.length - 1 && 'mr-8 lg:mr-12',
-                  ]}
-                  aria-label={link.label}
-                >
-                  <Icon type={link.icon} class="w-full h-full" />
-                </a>
-              ))
-            }
-          </div>
-        </div>
-      </nav>
     </div>
   </div>
+</header>
+
+<!-- Mobile nav overlay -->
+<div
+  id="nav-menu"
+  class="bp-grid fixed top-14 bottom-0 left-0 z-30 w-full transition-transform duration-500 ease-in-out -translate-x-full"
+  aria-hidden="true"
+>
+  <nav
+    class="flex flex-col justify-center h-full px-10"
+    aria-label="Mobile navigation"
+  >
+    {
+      NAV_ITEMS.map((item, index) => (
+        <a
+          href={item.href}
+          class:list={[
+            'nav-link flex items-baseline gap-4 py-5 border-b border-bp-border',
+            index === 0 && 'border-t',
+          ]}
+          aria-label={item.ariaLabel}
+        >
+          <span class="font-mono text-xs text-bp-steel tracking-widest">
+            0{index + 1} —
+          </span>
+          <span class="font-display text-5xl text-bp-text hover:text-bp-amber transition-colors duration-200">
+            {item.label}
+          </span>
+        </a>
+      ))
+    }
+
+    <!-- Social links -->
+    <div class="flex gap-6 mt-10">
+      {
+        SOCIAL_LINKS.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-6 h-6 text-bp-steel hover:text-bp-amber transition-colors duration-200"
+            aria-label={link.label}
+          >
+            <Icon type={link.icon} class="w-full h-full" />
+          </a>
+        ))
+      }
+    </div>
+  </nav>
 </div>
 
 <script>
@@ -115,7 +126,7 @@ const navLinkBaseClass =
   function animateNavLinksIn() {
     navLinks.forEach((link, index) => {
       link.classList.remove('slideOut')
-      link.style.setProperty('--slide-delay', `${(index + 1) * 0.2}s`)
+      link.style.setProperty('--slide-delay', `${(index + 1) * 0.08}s`)
       link.classList.add('slideIn')
     })
   }
@@ -130,33 +141,36 @@ const navLinkBaseClass =
 
   function toggleNav() {
     isOpen = !isOpen
+    hamburger?.setAttribute('aria-expanded', String(isOpen))
+    navMenu?.setAttribute('aria-hidden', String(!isOpen))
+    document.body.style.overflow = isOpen ? 'hidden' : ''
 
     if (isOpen) {
       hamburger?.classList.add('hamActive')
       navMenu?.classList.add('navOpen')
-
-      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar')
-      hamburgerBars?.forEach((bar) => bar.classList.add('activeBar'))
       animateNavLinksIn()
     } else {
       hamburger?.classList.remove('hamActive')
       navMenu?.classList.remove('navOpen')
-
-      const hamburgerBars = hamburger?.querySelectorAll('.hamburger-bar')
-      hamburgerBars?.forEach((bar) => bar.classList.remove('activeBar'))
       animateNavLinksOut()
     }
   }
 
   hamburger?.addEventListener('click', toggleNav)
-  hamburger?.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
+  hamburger?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
       toggleNav()
     }
   })
+  navMenu?.addEventListener('click', (e) => {
+    if (e.target === navMenu && isOpen) toggleNav()
+  })
 
-  navMenu?.addEventListener('click', () => {
-    if (isOpen) toggleNav()
+  // Close on nav link click (mobile)
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (isOpen) toggleNav()
+    })
   })
 </script>

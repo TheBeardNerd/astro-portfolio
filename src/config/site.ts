@@ -1,10 +1,9 @@
 export const SITE_URL = 'https://traviswindsor.com'
 export const SITE_NAME = 'Travis Windsor-Cummings'
 
-export const DEFAULT_PAGE_TITLE =
-  'Web Developer, Designer, Podcaster, Woodworker'
+export const DEFAULT_PAGE_TITLE = 'Software Engineer | Memphis Grizzlies'
 export const DEFAULT_PAGE_DESCRIPTION =
-  "Hello. I'm Travis. I'm a web developer, designer, podcaster, and woodworker."
+  "Hello, I'm Travis — Software Engineer at the Memphis Grizzlies, Memphis-born maker, and lifelong problem-solver."
 
 export const HEADSHOT_PATH = '/images/travis_headshot.webp'
 export const HEADSHOT_URL = `${SITE_URL}${HEADSHOT_PATH}`
@@ -38,7 +37,7 @@ export const PERSON_JSON_LD = {
   url: SITE_URL,
   givenName: 'Travis',
   familyName: 'Windsor-Cummings',
-  jobTitle: 'Web Developer',
+  jobTitle: 'Software Engineer',
   email: 'travis@windsor-cummings.com',
   birthDate: '1987-07-26T10:00:00.000Z',
   nationality: 'United States of America',

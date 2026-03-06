@@ -1,52 +1,90 @@
 ---
-import Icon from './Icon.astro'
+import BracketHeader from './blueprint/BracketHeader.astro'
+import CornerTicks from './blueprint/CornerTicks.astro'
 
 const skills = [
   {
+    num: '01',
     icon: 'design',
     title: 'Designing',
-    text: `The way in which things are designed has been a lifelong passion. I am naturally curious, so I enjoy learning how effective design can make or break a product or idea. I believe that great design is fundamental to a brand's success.`,
+    text: `Design is the difference between something that works and something that resonates. I care deeply about the experience behind every interface — from the layout of a landing page to the logic of a data-driven campaign. Good design isn't decoration; it's how you communicate.`,
+    since: '2018',
   },
   {
+    num: '02',
     icon: 'code',
     title: 'Coding',
-    text: `Web development is a means to realize the things about which I am passionate. Technology, problem solving, and creativity are but a few fragments which led me to realize this ambition for coding. In 2018, I began this journey, and I refuse to look back.`,
+    text: `Software engineering is how I solve problems for real people. At the Memphis Grizzlies, that means building and maintaining the systems behind ticketing, marketing, community, and live entertainment. I work across front-end development, Salesforce Marketing Cloud, and everything in between.`,
+    since: '2018',
   },
   {
-    icon: 'podcast',
-    title: 'Podcasting',
-    text: `Podcasting has become a big part of what I do. What started out as a hobby, has evolved into creating content and learning new ways to connect with listeners from around the world.`,
+    num: '03',
+    icon: 'maker',
+    title: 'Making',
+    text: `When I'm not building software, I'm building other things. My workshop has grown to include 3D printers, a Raspberry Pi, and a growing collection of tools for tinkering. Currently sourcing equipment for a home Plex server and NAS — because the making never stops.`,
+    since: '2015',
   },
   {
+    num: '04',
     icon: 'create',
     title: 'Creating',
-    text: `I like to build things. When I'm not building things on the web, you can find me working on home projects or in my constantly evolving workshop figuring out how I can build my next thing.`,
+    text: `Creating is a mindset, not a medium. Whether it's a web system that scales, a piece of furniture, or a solution no one else saw coming — I'm drawn to the act of making something out of nothing. Every problem is an invitation to build something better.`,
+    since: '2010',
   },
 ] as const
+
+// Vertical offsets for the asymmetric stagger
+const offsets = ['mt-0', 'mt-8', 'mt-16', 'mt-4']
 ---
 
-<section id="skills" class="text-gray-600 bg-gray-800 body-font">
-  <div class="px-4 py-24 mx-auto sm:px-6 md:px-16 sm:py-32">
-    {
-      skills.map((skill, index) => (
-        <div
-          class:list={[
-            'flex flex-col items-center max-w-screen-lg mx-auto lg:w-3/4 sm:flex-row',
-            index !== skills.length - 1 &&
-              'mb-10 pb-10 border-b border-gray-200',
-          ]}
-        >
-          <div class="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 text-teal-700 bg-white rounded sm:w-32 sm:h-32 sm:mr-10">
-            <Icon type={skill.icon} class="w-5/12 h-1/2" />
+<section
+  id="skills"
+  class="px-6 py-32 md:px-12 md:py-40 border-t border-bp-border"
+>
+  <div class="max-w-screen-xl mx-auto">
+    <BracketHeader
+      as="h2"
+      title="Bill of Materials"
+      meta="REV: CURRENT  QTY: 04"
+      class="mb-16"
+      data-animate="from-left"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {
+        skills.map((skill, index) => (
+          <div
+            class:list={[
+              'bp-grid-card group relative border border-bp-border p-8',
+              offsets[index],
+            ]}
+            data-animate={index % 2 === 0 ? 'from-left' : 'from-right'}
+            data-animate-delay={String(index * 80)}
+          >
+            <CornerTicks hoverSize="w-4 h-4" />
+
+            <div
+              class="absolute top-4 right-6 font-mono text-7xl font-bold text-bp-amber select-none pointer-events-none transition-opacity duration-150 group-hover:opacity-50"
+              style="opacity: 0.15;"
+              aria-hidden="true"
+            >
+              {skill.num}
+            </div>
+
+            <h3 class="font-display text-3xl text-bp-text mb-4 relative z-10">
+              {skill.title}
+            </h3>
+            <p class="text-bp-text opacity-75 leading-relaxed text-sm relative z-10 mb-6">
+              {skill.text}
+            </p>
+            <div class="font-mono text-xs tracking-widest text-bp-steel relative z-10">
+              STATUS: <span class="text-bp-steel">ACTIVE</span>
+              {'  '}
+              SINCE: <span class="text-bp-steel">{skill.since}</span>
+            </div>
           </div>
-          <div class="flex-grow mt-6 text-center sm:text-left sm:mt-0">
-            <h2 class="mb-2 text-2xl font-medium text-white">
-              <strong>{skill.title}</strong>
-            </h2>
-            <p class="leading-relaxed tracking-wide text-white">{skill.text}</p>
-          </div>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>
 </section>

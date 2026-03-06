@@ -4,27 +4,36 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Overpass', 'sans-serif'],
-        serif: ['"Playfair Display"', 'serif'],
-        mono: ['"Overpass Mono"', 'monospace'],
-        display: ['Palanquin Dark', 'sans-serif'],
+        display: ['"Barlow Condensed"', 'sans-serif'],
+        mono: ['"Space Mono"', 'monospace'],
+      },
+      colors: {
+        bp: {
+          bg: '#0b0e11',
+          card: '#111518',
+          border: '#1E2730',
+          amber: '#C9901A',
+          'amber-light': '#E5A82A',
+          steel: '#6B9FC8',
+          text: '#F2EDE6',
+        },
       },
       animation: {
-        'slide-delay-1': 'slidein 0.3s ease-in-out 1 .2s both',
-        'slide-delay-2': 'slidein 0.3s ease-in-out 1 .4s both',
-        'slide-delay-3': 'slidein 0.3s ease-in-out 1 .6s both',
-        'slide-delay-4': 'slidein 0.3s ease-in-out 1 .8s both',
-        'slide-delay-5': 'slidein 0.3s ease-in-out 1 1s both',
-        slideout: 'slideout 0.3s ease-in-out 1 1s both',
+        'slide-delay-1': 'slidein 0.3s ease-in-out 1 .08s both',
+        'slide-delay-2': 'slidein 0.3s ease-in-out 1 .16s both',
+        'slide-delay-3': 'slidein 0.3s ease-in-out 1 .24s both',
+        'slide-delay-4': 'slidein 0.3s ease-in-out 1 .32s both',
+        'slide-delay-5': 'slidein 0.3s ease-in-out 1 .40s both',
+        slideout: 'slideout 0.3s ease-in-out 1 both',
       },
       keyframes: {
         slidein: {
-          from: { transform: 'translateX(-100%)' },
-          to: { transform: 'translateX(0)' },
+          from: { translate: '-100%' },
+          to: { translate: '0' },
         },
         slideout: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
+          from: { translate: '0' },
+          to: { translate: '-100%' },
         },
       },
     },

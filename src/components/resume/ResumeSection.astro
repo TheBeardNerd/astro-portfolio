@@ -1,21 +1,18 @@
 ---
+import BracketHeader from '../blueprint/BracketHeader.astro'
+
 interface Props {
   title: string
-  bodyClass?: string
+  entryCount?: number
 }
 
-const {
-  title,
-  bodyClass = 'px-4 pt-8 pb-12 mb-8 border border-gray-200 rounded-b-sm md:px-8',
-} = Astro.props
-
-const sectionHeadingClass =
-  'px-4 pt-3 pb-2 font-sans text-2xl font-semibold leading-none tracking-wider text-white bg-teal-800 border border-teal-800 rounded-t-sm md:px-8 md:pt-4 md:pb-3 md:text-3xl xl:text-4xl'
+const { title, entryCount } = Astro.props
+const meta = entryCount ? `ENTRIES: 0${entryCount}` : ''
 ---
 
-<section class="shadow">
-  <h2 class={sectionHeadingClass}>{title}</h2>
-  <div class={bodyClass}>
+<section class="mb-16" data-animate="fade">
+  <BracketHeader as="h2" title={title} meta={meta} class="mb-8" />
+  <div class="pt-2">
     <slot />
   </div>
 </section>

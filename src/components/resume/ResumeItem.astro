@@ -1,47 +1,78 @@
 ---
 import ResumeBulletList from './ResumeBulletList.astro'
+import CornerTicks from '../blueprint/CornerTicks.astro'
 import type { ResumeItemData } from '../../data/resume'
 
 interface Props {
   item: ResumeItemData
 }
-
 const { item } = Astro.props
-
-const titleTightClass =
-  'mb-2 text-2xl leading-tight tracking-wide text-gray-700 md:text-3xl'
-const roleClass = 'text-xl tracking-wide text-teal-800 md:text-2xl'
-const bodyTextClass = 'leading-relaxed tracking-wide text-gray-700'
-const bodyTextLgClass = `${bodyTextClass} md:text-lg`
 ---
 
 <div>
-  <h3 class={titleTightClass}>{item.organization}</h3>
-
-  {
-    item.logo && (
-      <img
-        src={item.logo.src}
-        alt={item.logo.alt}
-        class={item.logo.class ?? 'object-contain w-32 h-16 mb-2 mr-8'}
-      />
-    )
-  }
+  <!-- Organization header -->
+  <div class="flex flex-col sm:flex-row sm:items-start gap-4 mb-4">
+    {
+      item.logo && (
+        <div class="relative inline-block shrink-0">
+          <div class="relative border border-bp-border p-2">
+            <CornerTicks size="w-2 h-2" thin />
+            <img
+              src={item.logo.src}
+              alt={item.logo.alt}
+              class="object-contain w-24 h-12"
+            />
+          </div>
+        </div>
+      )
+    }
+    <h3 class="font-display text-2xl text-bp-text">{item.organization}</h3>
+  </div>
 
   {
     item.entries.map((entry, index) => (
       <div>
-        {index > 0 && item.divideEntries && <hr class="my-6 sm:my-8" />}
-
-        {entry.role && (
-          <h4 class:list={[roleClass, entry.roleClass]}>{entry.role}</h4>
+        {index > 0 && item.divideEntries && (
+          <hr class="my-6 border-t border-dashed border-bp-border" />
         )}
-        {entry.date && (
-          <p class:list={[bodyTextLgClass, entry.dateClass]}>{entry.date}</p>
+
+        {(entry.role || entry.date) && (
+          <div class="flex flex-wrap items-baseline gap-2 mb-2">
+            {entry.role && (
+              <span
+                class:list={[
+                  'font-mono text-sm text-bp-amber tracking-wide',
+                  entry.roleClass,
+                ]}
+              >
+                {entry.role}
+              </span>
+            )}
+            {entry.role && entry.date && (
+              <span class="font-mono text-bp-steel text-xs" aria-hidden="true">
+                —
+              </span>
+            )}
+            {entry.date && (
+              <span
+                class:list={[
+                  'font-mono text-xs text-bp-steel tracking-widest',
+                  entry.dateClass,
+                ]}
+              >
+                {entry.date}
+              </span>
+            )}
+          </div>
         )}
 
         {entry.description && (
-          <p class:list={[bodyTextClass, entry.descriptionClass]}>
+          <p
+            class:list={[
+              'text-sm text-bp-text opacity-75 leading-relaxed mb-2',
+              entry.descriptionClass,
+            ]}
+          >
             {entry.description}
           </p>
         )}
@@ -49,7 +80,7 @@ const bodyTextLgClass = `${bodyTextClass} md:text-lg`
         {entry.link && (
           <a
             href={entry.link.href}
-            class="text-teal-600 underline transition-colors duration-300 hover:text-teal-500"
+            class="font-mono text-xs text-bp-steel hover:text-bp-amber transition-colors duration-200 underline"
           >
             {entry.link.label}
           </a>

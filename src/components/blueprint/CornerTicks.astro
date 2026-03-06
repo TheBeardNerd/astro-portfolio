@@ -1,0 +1,53 @@
+---
+interface Props {
+  /** Tailwind size classes for each tick. Default: 'w-3 h-3' */
+  size?: string
+  /** When set, adds group-hover expand classes (e.g. 'w-4 h-4'). Requires parent to have `group`. */
+  hoverSize?: string
+  /** When true, uses 1px border instead of 2px (for small logo frames). Default: false */
+  thin?: boolean
+}
+
+const { size = 'w-3 h-3', hoverSize, thin = false } = Astro.props
+
+const bTop = thin ? 'border-t border-l' : 'border-t-2 border-l-2'
+const bRight = thin ? 'border-t border-r' : 'border-t-2 border-r-2'
+const bBottomLeft = thin ? 'border-b border-l' : 'border-b-2 border-l-2'
+const bBottomRight = thin ? 'border-b border-r' : 'border-b-2 border-r-2'
+const hoverClass = hoverSize
+  ? `transition-all duration-150 group-hover:${hoverSize}`
+  : ''
+---
+
+<span
+  class:list={[
+    'absolute top-0 left-0 border-bp-amber -translate-x-px -translate-y-px',
+    bTop,
+    size,
+    hoverClass,
+  ]}
+  aria-hidden="true"></span>
+<span
+  class:list={[
+    'absolute top-0 right-0 border-bp-amber translate-x-px -translate-y-px',
+    bRight,
+    size,
+    hoverClass,
+  ]}
+  aria-hidden="true"></span>
+<span
+  class:list={[
+    'absolute bottom-0 left-0 border-bp-amber -translate-x-px translate-y-px',
+    bBottomLeft,
+    size,
+    hoverClass,
+  ]}
+  aria-hidden="true"></span>
+<span
+  class:list={[
+    'absolute bottom-0 right-0 border-bp-amber translate-x-px translate-y-px',
+    bBottomRight,
+    size,
+    hoverClass,
+  ]}
+  aria-hidden="true"></span>

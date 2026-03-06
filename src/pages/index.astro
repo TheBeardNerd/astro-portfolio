@@ -2,50 +2,160 @@
 import Layout from '../layouts/Layout.astro'
 import Skills from '../components/Skills.astro'
 import ContactForm from '../components/ContactForm.astro'
+import CareerTimeline from '../components/CareerTimeline.astro'
+import CornerTicks from '../components/blueprint/CornerTicks.astro'
 ---
 
 <Layout>
+  <!-- Hero -->
   <section
-    class="flex items-center justify-center px-4 pt-8 pb-24 md:pt-24 md:pb-32 sm:px-6 md:px-16"
+    class="relative flex flex-col min-h-svh px-6 md:px-12 pb-20 overflow-hidden"
+    aria-label="Introduction"
   >
-    <div class="w-full max-w-screen-lg lg:w-3/4">
-      <div class="flex flex-col items-center sm:mb-12 sm:flex-row">
-        <img
-          src="/images/travis_headshot.webp"
-          alt="Travis Windsor-Cummings Headshot"
-          class="w-3/4 max-w-xs mb-8 rounded shadow-lg sm:w-1/4 sm:mb-0 sm:mr-10 xl:mr-16"
-        />
-        <div class="w-full mb-6 text-left sm:mb-0">
-          <h1
-            class="mb-1 text-3xl font-extrabold tracking-wide text-teal-800 sm:mb-2 lg:mb-4 sm:text-5xl xl:text-6xl"
+    <!-- Vertically centered content wrapper -->
+    <div
+      class="w-full max-w-screen-xl mx-auto flex flex-col flex-1 justify-center gap-4 md:gap-5 py-8"
+    >
+      <!-- TRAVIS wordmark -->
+      <div data-animate="fade" data-animate-delay="200">
+        <h1
+          class="font-display text-bp-text select-none text-center md:text-left"
+          style="line-height: 0.88;"
+        >
+          <span class="block text-[28vw] md:text-[18vw]">TRAVIS</span>
+          <span class="block text-[11vw] md:text-[7vw]">WINDSOR-CUMMINGS</span>
+        </h1>
+      </div>
+
+      <!-- Full-width datum line — separates title block from data block -->
+      <div
+        class="flex items-center gap-3"
+        aria-hidden="true"
+        data-animate="fade"
+        data-animate-delay="700"
+      >
+        <span class="border-top-amber-dashed flex-1 block h-px"></span>
+        <span class="font-mono text-xs text-bp-amber tracking-widest shrink-0"
+          >[ v2.0 ]</span
+        >
+      </div>
+
+      <!-- Subtitle -->
+      <p
+        class="font-mono text-[11px] tracking-widest uppercase text-bp-steel text-center md:text-left flex flex-col items-center md:block"
+        data-animate="fade"
+        data-animate-delay="500"
+      >
+        <span class="md:inline">SOFTWARE ENGINEER</span>
+        <span class="md:inline leading-none md:leading-normal" aria-hidden="true"> — </span>
+        <span class="md:inline">MEMPHIS GRIZZLIES</span>
+        <span class="md:inline leading-none md:leading-normal" aria-hidden="true"> — </span>
+        <span class="md:inline">MEMPHIS, TN</span>
+      </p>
+
+      <!-- Tagline -->
+      <p
+        class="font-display text-2xl md:text-3xl text-bp-text tracking-wider uppercase text-center md:text-left"
+        data-animate="fade"
+        data-animate-delay="800"
+      >
+        <span class="block md:inline">Field tested.</span>
+        <span class="block md:inline"> Built differently.</span>
+      </p>
+
+      <!-- Data block: text/action left, headshot right -->
+      <!-- DOM order: CTA before headshot so CTA is visible above fold on mobile -->
+      <div
+        class="flex flex-col-reverse md:flex-row md:items-start md:justify-between gap-8 md:gap-16 mt-4 md:mt-6"
+      >
+        <!-- Left column: primary + secondary CTA -->
+        <div class="flex flex-col items-center md:items-start gap-5">
+          <!-- Primary CTA -->
+          <a
+            href="/resume"
+            class="inline-block px-8 py-3 font-display text-xl tracking-widest text-bp-bg border-2 border-bp-amber bg-bp-amber hover:bg-transparent hover:text-bp-amber transition-colors duration-300"
+            data-animate="fade"
+            data-animate-delay="1000"
           >
-            Hello. I'm Travis.
-          </h1>
-          <div class="text-xl text-gray-700 sm:text-3xl xl:text-4xl">
-            <span>I'm a</span>
-            <span class="text-teal-700">web developer, </span>
-            <span class="text-indigo-600">designer, </span>
-            <span class="text-red-700">podcaster, </span>
-            <span>and </span>
-            <span class="text-yellow-900">woodworker.</span>
+            VIEW RECORD →
+          </a>
+
+          <!-- Secondary CTA -->
+          <a
+            href="/#contact"
+            class="font-mono text-sm tracking-widest text-bp-amber hover:text-bp-text transition-colors duration-200 mt-4"
+            aria-label="Jump to contact section"
+            data-animate="fade"
+            data-animate-delay="1200"
+          >
+            CONTACT →
+          </a>
+        </div>
+
+        <!-- Right column: coordinates + headshot + subject label -->
+        <div
+          class="flex flex-col items-center md:items-start gap-3"
+          data-animate="fade"
+          data-animate-delay="1100"
+        >
+          <!-- Memphis coordinates — always visible -->
+          <p
+            class="font-mono text-[11px] tracking-widest text-bp-steel"
+            aria-hidden="true"
+          >
+            35°08'N 90°02'W
+          </p>
+
+          <!-- Headshot in blueprint frame -->
+          <div class="relative border border-bp-border p-1">
+            <CornerTicks size="w-4 h-4" />
+            <img
+              src="/images/travis_headshot.webp"
+              alt="Travis Windsor-Cummings"
+              class="block w-44 sm:w-52 md:w-60 lg:w-64"
+              width="256"
+              height="256"
+            />
+          </div>
+
+          <!-- Annotation label -->
+          <div class="flex items-center gap-2" aria-hidden="true">
+            <span class="border-top-amber-solid block h-px w-6"></span>
+            <span class="font-mono text-xs text-bp-amber tracking-widest"
+              >SUBJECT</span
+            >
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- Scroll prompt — pinned to hero bottom -->
+    <a
+      href="#story"
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs text-bp-steel tracking-widest hover:text-bp-amber transition-colors duration-200 whitespace-nowrap"
+      data-animate="fade"
+      data-animate-delay="1400"
+    >
+      ↓ scroll to begin
+    </a>
+  </section>
+
+  <!-- Story -->
+  <section
+    id="story"
+    class="px-6 py-32 md:px-12 md:py-40 border-t border-bp-border"
+  >
+    <div class="max-w-screen-xl mx-auto">
       <p
-        class="leading-relaxed tracking-wide text-left text-gray-700 sm:text-lg"
+        class="font-mono text-sm text-bp-steel tracking-widest mb-16 max-w-2xl"
+        data-animate="fade"
       >
-        For most of my life I've been fascinated with the science and
-        engineering of computers, but I haven't pursued the field
-        professionally. In late 2017, a speaker at an event said something that
-        resonated with me. She said, "Make progress not perfection." It inspired
-        me to make intentional changes in my life, one of which is pursuing,
-        professionally, the things about which I am passionate. Those things are
-        design, art, and technology. This site is a testament to that goal. This
-        will be a space to experiment with new ideas, learn about new and
-        existing technologies, and give me a place to implement my increasing
-        skills as a software developer.
+        I didn't arrive at software engineering in a straight line. I took the
+        long way around — through restaurants, warehouses, freight yards, and
+        five years of showing up every day before I ever wrote a line of code.
+        It turns out that was exactly the right path.
       </p>
+      <CareerTimeline />
     </div>
   </section>
 

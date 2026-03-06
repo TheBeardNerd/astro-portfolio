@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import BracketHeader from '../components/blueprint/BracketHeader.astro'
 import ResumeSection from '../components/resume/ResumeSection.astro'
 import ResumeItem from '../components/resume/ResumeItem.astro'
 import { RESUME_SECTIONS } from '../data/resume'
@@ -9,28 +10,67 @@ import { RESUME_SECTIONS } from '../data/resume'
   title="Resume"
   description="A current resume for Travis Windsor-Cummings"
 >
-  <div class="flex justify-center">
-    <div class="max-w-5xl px-4 pb-20 md:pb-24 md:px-8">
-      <h1
-        class="mb-5 text-4xl font-medium tracking-wider text-gray-800 md:text-5xl xl:text-6xl font-display"
-      >
-        Resumé
-      </h1>
+  <div class="flex gap-0">
+    <!-- Sidebar (desktop) -->
+    <aside
+      class="hidden lg:block w-56 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-r border-bp-border px-6 py-10"
+      aria-label="Resume sections"
+    >
+      <p class="font-mono text-xs tracking-widest text-bp-steel mb-6 uppercase">
+        Contents
+      </p>
+      <nav aria-label="Resume section navigation">
+        <ul class="space-y-3 list-none p-0">
+          {
+            RESUME_SECTIONS.map((section, index) => (
+              <li>
+                <a
+                  href={`#resume-${section.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  class="flex items-center gap-2 font-mono text-xs tracking-widest text-bp-steel hover:text-bp-amber transition-colors duration-200 group"
+                >
+                  <span class="text-bp-steel group-hover:text-bp-amber transition-colors duration-200">
+                    0{index + 1}
+                  </span>
+                  <span class="uppercase">{section.title}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 px-6 py-10 md:px-12 max-w-4xl">
+      <!-- Page header -->
+      <div class="mb-16">
+        <BracketHeader
+          title="Personnel File"
+          meta="Subject: T. Windsor-Cummings"
+        />
+      </div>
 
       {
         RESUME_SECTIONS.map((section) => (
-          <ResumeSection title={section.title} bodyClass={section.bodyClass}>
-            {section.items.map((item, index) => (
-              <>
-                <ResumeItem item={item} />
-                {index < section.items.length - 1 && (
-                  <hr class="my-6 sm:my-8" />
-                )}
-              </>
-            ))}
-          </ResumeSection>
+          <div
+            id={`resume-${section.title.toLowerCase().replace(/\s+/g, '-')}`}
+          >
+            <ResumeSection
+              title={section.title}
+              entryCount={section.items.length}
+            >
+              {section.items.map((item, index) => (
+                <>
+                  <ResumeItem item={item} />
+                  {index < section.items.length - 1 && (
+                    <hr class="my-8 border-t border-dashed border-bp-border" />
+                  )}
+                </>
+              ))}
+            </ResumeSection>
+          </div>
         ))
       }
-    </div>
+    </main>
   </div>
 </Layout>
