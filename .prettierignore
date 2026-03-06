@@ -1,5 +1,6 @@
 .agents/
 .claude/
+.worktrees/
 CLAUDE.md
 skills-lock.json
 docs/plans/
