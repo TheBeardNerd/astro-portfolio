@@ -12,7 +12,13 @@ interface Props {
   thin?: boolean
 }
 
-const { size = 'w-3 h-3', hoverGrow = false, hoverFull = false, focusFull = false, thin = false } = Astro.props
+const {
+  size = 'w-3 h-3',
+  hoverGrow = false,
+  hoverFull = false,
+  focusFull = false,
+  thin = false,
+} = Astro.props
 
 const bTop = thin ? 'border-t border-l' : 'border-t-2 border-l-2'
 const bRight = thin ? 'border-t border-r' : 'border-t-2 border-r-2'
@@ -22,9 +28,15 @@ const bBottomRight = thin ? 'border-b border-r' : 'border-b-2 border-r-2'
 const hoverClass = [
   hoverGrow || hoverFull || focusFull ? 'transition-all duration-500' : '',
   hoverGrow ? 'group-hover:w-[0.9375rem] group-hover:h-[0.9375rem]' : '',
-  hoverFull ? 'group-hover:w-[calc(50%+1px)] group-hover:h-[calc(50%+1px)]' : '',
-  focusFull ? 'group-focus-within:!w-[calc(50%+1px)] group-focus-within:!h-[calc(50%+1px)]' : '',
-].filter(Boolean).join(' ')
+  hoverFull
+    ? 'group-hover:w-[calc(50%+1px)] group-hover:h-[calc(50%+1px)]'
+    : '',
+  focusFull
+    ? 'group-focus-within:!w-[calc(50%+1px)] group-focus-within:!h-[calc(50%+1px)]'
+    : '',
+]
+  .filter(Boolean)
+  .join(' ')
 ---
 
 <span
