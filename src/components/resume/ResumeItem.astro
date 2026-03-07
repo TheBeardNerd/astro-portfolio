@@ -11,17 +11,29 @@ const { item } = Astro.props
 
 <div>
   <!-- Organization header -->
-  <div class="flex flex-col sm:flex-row sm:items-start gap-4 mb-4">
+  <div class="flex flex-col items-start gap-4 mb-2">
     {
       item.logo && (
         <div class="relative inline-block shrink-0">
           <div class="relative border border-bp-border p-2">
             <CornerTicks size="w-2 h-2" thin />
-            <img
-              src={item.logo.src}
-              alt={item.logo.alt}
-              class="object-contain w-24 h-12"
-            />
+            {item.logo.darkSrc ? (
+              <div class="p-3">
+                <img
+                  src={item.logo.darkSrc}
+                  alt={item.logo.alt}
+                  class="object-contain w-24 h-12"
+                />
+              </div>
+            ) : (
+              <div class="bg-white p-3">
+                <img
+                  src={item.logo.src}
+                  alt={item.logo.alt}
+                  class="object-contain w-24 h-12"
+                />
+              </div>
+            )}
           </div>
         </div>
       )
@@ -69,7 +81,7 @@ const { item } = Astro.props
         {entry.description && (
           <p
             class:list={[
-              'text-sm text-bp-text opacity-75 leading-relaxed mb-2',
+              'font-body text-base text-bp-text opacity-75 leading-7 mb-2',
               entry.descriptionClass,
             ]}
           >

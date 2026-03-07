@@ -18,6 +18,8 @@ export interface ResumeItemData {
     src: string
     alt: string
     class?: string
+    /** Dark-background variant. When provided, renders directly without the white container fallback. */
+    darkSrc?: string
   }
   divideEntries?: boolean
   entries: ResumeEntry[]
