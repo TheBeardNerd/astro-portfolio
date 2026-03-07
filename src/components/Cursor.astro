@@ -37,8 +37,6 @@
   if (cursor && svg && window.matchMedia('(pointer: fine)').matches) {
     let mouseX = window.innerWidth / 2
     let mouseY = window.innerHeight / 2
-    let curX = mouseX
-    let curY = mouseY
 
     document.body.style.cursor = 'none'
 
@@ -46,6 +44,13 @@
       mouseX = e.clientX
       mouseY = e.clientY
     })
+
+    function tick() {
+      cursor.style.left = mouseX + 'px'
+      cursor.style.top = mouseY + 'px'
+      requestAnimationFrame(tick)
+    }
+    tick()
 
     document
       .querySelectorAll(
@@ -63,19 +68,5 @@
           svg.setAttribute('viewBox', '0 0 20 20')
         })
       })
-
-    function lerp(a: number, b: number, t: number) {
-      return a + (b - a) * t
-    }
-
-    function tick() {
-      curX = lerp(curX, mouseX, 0.14)
-      curY = lerp(curY, mouseY, 0.14)
-      cursor.style.left = curX + 'px'
-      cursor.style.top = curY + 'px'
-      requestAnimationFrame(tick)
-    }
-
-    tick()
   }
 </script>

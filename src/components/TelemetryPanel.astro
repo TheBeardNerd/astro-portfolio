@@ -1,0 +1,97 @@
+---
+import CornerTicks from './blueprint/CornerTicks.astro'
+---
+
+<aside
+  id="telemetry-panel"
+  aria-hidden="true"
+  class="hidden lg:block fixed bottom-6 left-6 z-40"
+  style="opacity: 0; transition: opacity 400ms ease-out;"
+>
+  <div
+    class="relative border border-bp-border p-3 w-44"
+    style="background: #111518;"
+  >
+    <CornerTicks />
+    <div class="font-mono text-[10px] text-bp-steel tracking-widest mb-2">
+      // TELEMETRY ————
+    </div>
+    <div class="space-y-1">
+      <div class="flex justify-between font-mono text-[11px]">
+        <span class="text-bp-steel">LOC</span>
+        <span class="text-bp-text">MEMPHIS, TN</span>
+      </div>
+      <div class="flex justify-between font-mono text-[11px]">
+        <span class="text-bp-steel">TIME</span>
+        <span id="tel-time" class="text-bp-text tabular-nums">--:--:--</span>
+      </div>
+      <div class="flex justify-between font-mono text-[11px]">
+        <span class="text-bp-steel">SESSION</span>
+        <span id="tel-session" class="text-bp-text tabular-nums">00:00:00</span>
+      </div>
+      <div class="flex justify-between font-mono text-[11px]">
+        <span class="text-bp-steel">SCROLL</span>
+        <span id="tel-scroll" class="text-bp-text tabular-nums">0%</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  const panel = document.getElementById('telemetry-panel') as HTMLElement | null
+  const timeEl = document.getElementById('tel-time')
+  const sessionEl = document.getElementById('tel-session')
+  const scrollEl = document.getElementById('tel-scroll')
+
+  if (
+    panel &&
+    timeEl &&
+    sessionEl &&
+    scrollEl &&
+    window.matchMedia('(min-width: 1024px)').matches
+  ) {
+    const sessionStart = Date.now()
+
+    function pad(n: number): string {
+      return String(n).padStart(2, '0')
+    }
+
+    function updateTime(): void {
+      const now = new Date()
+
+      // Memphis time (Central Time)
+      const formatted = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Chicago',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      }).format(now)
+      timeEl.textContent = formatted
+
+      // Session uptime
+      const elapsed = Math.floor((Date.now() - sessionStart) / 1000)
+      const h = Math.floor(elapsed / 3600)
+      const m = Math.floor((elapsed % 3600) / 60)
+      const s = elapsed % 60
+      sessionEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`
+    }
+
+    function updateScroll(): void {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const pct = max > 0 ? Math.round((window.scrollY / max) * 100) : 0
+      scrollEl.textContent = `${pct}%`
+    }
+
+    // Fade in after hero sequence completes
+    setTimeout(() => {
+      panel.style.opacity = '1'
+    }, 1500)
+
+    setInterval(updateTime, 1000)
+    updateTime()
+
+    window.addEventListener('scroll', updateScroll, { passive: true })
+    updateScroll()
+  }
+</script>
