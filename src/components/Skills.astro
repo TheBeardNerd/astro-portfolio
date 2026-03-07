@@ -35,6 +35,37 @@ const skills = [
 
 // Vertical offsets for the asymmetric stagger
 const offsets = ['mt-0', 'mt-8', 'mt-16', 'mt-4']
+
+// SVG schematic symbols — one per card, in order
+const schematics = [
+  // 01 — Resistor (zigzag)
+  `<svg viewBox="0 0 90 30" width="90" height="30" fill="none" stroke="#C9901A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
+    <line x1="0" y1="15" x2="13" y2="15"/>
+    <polyline points="13,15 18,5 26,25 34,5 42,25 50,5 58,25 66,5 71,15 77,15"/>
+    <line x1="77" y1="15" x2="90" y2="15"/>
+  </svg>`,
+  // 02 — Capacitor (two parallel plates)
+  `<svg viewBox="0 0 90 30" width="90" height="30" fill="none" stroke="#C9901A" stroke-width="1.5" aria-hidden="true">
+    <line x1="0" y1="15" x2="40" y2="15"/>
+    <line x1="40" y1="4" x2="40" y2="26"/>
+    <line x1="45" y1="4" x2="45" y2="26"/>
+    <line x1="45" y1="15" x2="90" y2="15"/>
+  </svg>`,
+  // 03 — AND gate (D-shape)
+  `<svg viewBox="0 0 90 30" width="90" height="30" fill="none" stroke="#C9901A" stroke-width="1.5" aria-hidden="true">
+    <path d="M 20 4 L 48 4 A 11 11 0 0 1 48 26 L 20 26 Z"/>
+    <line x1="0" y1="10" x2="20" y2="10"/>
+    <line x1="0" y1="20" x2="20" y2="20"/>
+    <line x1="59" y1="15" x2="90" y2="15"/>
+  </svg>`,
+  // 04 — Ground (three descending bars)
+  `<svg viewBox="0 0 90 30" width="90" height="30" fill="none" stroke="#C9901A" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+    <line x1="45" y1="0" x2="45" y2="8"/>
+    <line x1="16" y1="8" x2="74" y2="8"/>
+    <line x1="26" y1="16" x2="64" y2="16"/>
+    <line x1="36" y1="24" x2="54" y2="24"/>
+  </svg>`,
+] as const
 ---
 
 <section
@@ -64,12 +95,10 @@ const offsets = ['mt-0', 'mt-8', 'mt-16', 'mt-4']
             <CornerTicks hoverFull />
 
             <div
-              class="absolute top-4 right-6 font-mono text-7xl font-bold text-bp-amber select-none pointer-events-none transition-opacity duration-150 group-hover:opacity-[0.18]"
-              style="opacity: 0.08;"
-              aria-hidden="true"
-            >
-              {skill.num}
-            </div>
+              class="absolute bottom-4 right-6 select-none pointer-events-none transition-opacity duration-150 group-hover:opacity-[0.32]"
+              style="opacity: 0.18;"
+              set:html={schematics[index]}
+            />
 
             <h3 class="font-display text-3xl text-bp-text mb-4 relative z-10">
               {skill.title}
