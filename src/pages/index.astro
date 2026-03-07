@@ -4,6 +4,7 @@ import Skills from '../components/Skills.astro'
 import ContactForm from '../components/ContactForm.astro'
 import CareerTimeline from '../components/CareerTimeline.astro'
 import CornerTicks from '../components/blueprint/CornerTicks.astro'
+import HeroDraftingCanvas from '../components/HeroDraftingCanvas.astro'
 ---
 
 <Layout>
@@ -12,9 +13,10 @@ import CornerTicks from '../components/blueprint/CornerTicks.astro'
     class="relative flex flex-col min-h-svh px-6 md:px-12 pb-20 overflow-hidden"
     aria-label="Introduction"
   >
+    <HeroDraftingCanvas />
     <!-- Vertically centered content wrapper -->
     <div
-      class="w-full max-w-screen-xl mx-auto flex flex-col flex-1 justify-center gap-4 md:gap-5 py-8"
+      class="relative z-10 w-full max-w-screen-xl mx-auto flex flex-col flex-1 justify-center gap-4 md:gap-5 py-8"
     >
       <!-- TRAVIS wordmark -->
       <div data-animate="fade" data-animate-delay="200">

@@ -1,0 +1,180 @@
+---
+// No props — fully self-contained
+---
+
+<canvas
+  id="hero-canvas"
+  aria-hidden="true"
+  class="fixed inset-0 w-full h-full pointer-events-none"
+  style="z-index: 0; display: block;"></canvas>
+
+<script>
+  const canvas = document.getElementById(
+    'hero-canvas',
+  ) as HTMLCanvasElement | null
+  if (!canvas) throw new Error('hero-canvas not found')
+
+  // Respect reduced-motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    canvas.style.display = 'none'
+  } else {
+    const ctx = canvas.getContext('2d')!
+    const GRID = 40
+    const TRACE_LIFE = 1800 // ms before a trace point fades out
+    const GLOW_RADIUS = 100
+    const isPointer = window.matchMedia('(pointer: fine)').matches
+
+    interface TracePoint {
+      x: number
+      y: number
+      time: number
+    }
+
+    let mouseX = -9999
+    let mouseY = -9999
+    let traces: TracePoint[] = []
+    let rafId = 0
+
+    // Mobile Lissajous state
+    let lisx = 0
+    let lisy = 0
+
+    function resize(): void {
+      const dpr = window.devicePixelRatio || 1
+      const W = window.innerWidth
+      const H = window.innerHeight
+      canvas.width = W * dpr
+      canvas.height = H * dpr
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    function drawFrame(): void {
+      const W = window.innerWidth
+      const H = window.innerHeight
+      const now = performance.now()
+
+      ctx.clearRect(0, 0, W, H)
+
+      // ── Mobile: advance Lissajous point (anchored to scrolled viewport center) ──
+      if (!isPointer) {
+        const t = now / 20000
+        lisx = window.scrollX + W * 0.5 + W * 0.3 * Math.sin(2 * t * Math.PI)
+        lisy =
+          window.scrollY + H * 0.5 + H * 0.3 * Math.sin(3 * t * Math.PI + 0.785)
+        traces.push({ x: lisx, y: lisy, time: now })
+      }
+
+      // Translate context by scroll offset so drawings live in page space
+      ctx.save()
+      ctx.translate(-window.scrollX, -window.scrollY)
+
+      // ── Desktop: push raw mouse position to traces each frame ──
+      if (isPointer && mouseX > -9000) {
+        traces.push({ x: mouseX, y: mouseY, time: now })
+      }
+
+      // ── Grid cell glow ──
+      const cx = isPointer ? mouseX : lisx
+      const cy = isPointer ? mouseY : lisy
+      const mobileAlphaScale = isPointer ? 1 : 0.5
+
+      if (cx > -9000) {
+        const startCol = Math.floor((cx - GLOW_RADIUS) / GRID)
+        const endCol = Math.ceil((cx + GLOW_RADIUS) / GRID)
+        const startRow = Math.floor((cy - GLOW_RADIUS) / GRID)
+        const endRow = Math.ceil((cy + GLOW_RADIUS) / GRID)
+
+        for (let row = startRow; row <= endRow; row++) {
+          for (let col = startCol; col <= endCol; col++) {
+            const cellX = col * GRID
+            const cellY = row * GRID
+            const centerX = cellX + GRID / 2
+            const centerY = cellY + GRID / 2
+            const dist = Math.hypot(centerX - cx, centerY - cy)
+
+            if (dist < GLOW_RADIUS) {
+              const alpha = (1 - dist / GLOW_RADIUS) * 0.06 * mobileAlphaScale
+              ctx.fillStyle = `rgba(201,144,26,${alpha})`
+              ctx.fillRect(cellX, cellY, GRID, GRID)
+            }
+          }
+        }
+      }
+
+      // ── Trace paths ──
+      // Cull expired points
+      traces = traces.filter((p) => now - p.time < TRACE_LIFE)
+
+      if (traces.length > 2) {
+        const maxAlpha = isPointer ? 0.55 : 0.22
+        ctx.lineWidth = 1.5
+        ctx.lineCap = 'round'
+        ctx.lineJoin = 'round'
+
+        // Draw midpoint-to-midpoint quadratic curves so consecutive segments
+        // share endpoints — smooth connection without jagged joints
+        for (let i = 1; i < traces.length - 1; i++) {
+          const p0 = traces[i - 1]
+          const p1 = traces[i]
+          const p2 = traces[i + 1]
+
+          const age = now - p1.time
+          const alpha = Math.max(0, 1 - age / TRACE_LIFE) * maxAlpha
+
+          const x0 = (p0.x + p1.x) / 2
+          const y0 = (p0.y + p1.y) / 2
+          const x1 = (p1.x + p2.x) / 2
+          const y1 = (p1.y + p2.y) / 2
+
+          ctx.beginPath()
+          ctx.moveTo(x0, y0)
+          ctx.quadraticCurveTo(p1.x, p1.y, x1, y1)
+          ctx.strokeStyle = `rgba(201,144,26,${alpha.toFixed(3)})`
+          ctx.stroke()
+        }
+      }
+
+      ctx.restore()
+
+      rafId = requestAnimationFrame(drawFrame)
+    }
+
+    // ── Resize handling ──
+    window.addEventListener('resize', resize)
+    resize()
+
+    // ── Mouse events (desktop only) ──
+    // Use pageX/pageY so traces live in page space (scroll with the page)
+    if (isPointer) {
+      let clientX = -9999
+      let clientY = -9999
+
+      document.addEventListener('mousemove', (e) => {
+        clientX = e.clientX
+        clientY = e.clientY
+        mouseX = e.pageX
+        mouseY = e.pageY
+      })
+
+      // On scroll, recompute page position from last known client position
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (clientX < -9000) return
+          mouseX = clientX + window.scrollX
+          mouseY = clientY + window.scrollY
+        },
+        { passive: true },
+      )
+    }
+
+    // ── Start loop ──
+    rafId = requestAnimationFrame(drawFrame)
+
+    // ── Cleanup on navigation (Astro view transitions) ──
+    document.addEventListener('astro:before-swap', () => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', resize)
+    })
+  }
+</script>
