@@ -5,14 +5,18 @@
 <canvas
   id="hero-canvas"
   aria-hidden="true"
-  class="fixed inset-0 w-full h-full pointer-events-none"
-  style="z-index: 0; display: block;"></canvas>
+  class="pointer-events-none"
+  style="position: absolute; top: 0; left: 0; z-index: 0; display: block; will-change: transform;"
+></canvas>
 
 <script>
   const canvas = document.getElementById(
     'hero-canvas',
   ) as HTMLCanvasElement | null
   if (!canvas) throw new Error('hero-canvas not found')
+
+  // Move canvas to body so absolute positioning is relative to the page
+  document.body.prepend(canvas)
 
   // Respect reduced-motion preference
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -45,6 +49,8 @@
       const H = window.innerHeight
       canvas.width = W * dpr
       canvas.height = H * dpr
+      canvas.style.width = W + 'px'
+      canvas.style.height = H + 'px'
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
@@ -52,6 +58,9 @@
       const W = window.innerWidth
       const H = window.innerHeight
       const now = performance.now()
+
+      // Slide canvas to current scroll position (GPU-composited, no layout cost)
+      canvas.style.transform = `translate3d(${window.scrollX}px,${window.scrollY}px,0)`
 
       ctx.clearRect(0, 0, W, H)
 
