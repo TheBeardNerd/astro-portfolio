@@ -13,14 +13,14 @@ import { RESUME_SECTIONS } from '../data/resume'
   <div class="flex gap-0">
     <!-- Sidebar (desktop) -->
     <aside
-      class="hidden lg:block w-56 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-r border-bp-border px-6 py-10"
+      class="hidden lg:block w-56 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-r border-bp-border px-6 py-10 lg:py-16"
       aria-label="Resume sections"
     >
       <p class="font-mono text-xs tracking-widest text-bp-steel mb-6 uppercase">
         Contents
       </p>
       <nav aria-label="Resume section navigation">
-        <ul class="space-y-3 list-none p-0">
+        <ul class="space-y-4 list-none p-0">
           {
             RESUME_SECTIONS.map((section, index) => (
               <li>
@@ -41,7 +41,7 @@ import { RESUME_SECTIONS } from '../data/resume'
     </aside>
 
     <!-- Main content -->
-    <main class="flex-1 px-6 py-10 md:px-12 max-w-4xl">
+    <main class="flex-1 px-6 py-10 md:py-16 md:px-12 max-w-4xl">
       <!-- Page header -->
       <div class="mb-16">
         <BracketHeader

@@ -2,21 +2,41 @@
 interface Props {
   /** Tailwind size classes for each tick. Default: 'w-3 h-3' */
   size?: string
-  /** When set, adds group-hover expand classes (e.g. 'w-4 h-4'). Requires parent to have `group`. */
-  hoverSize?: string
+  /** When true, each tick grows 10% on hover. Requires parent to have `group`. */
+  hoverGrow?: boolean
+  /** When true, each tick expands to full outline on hover. Requires parent to have `group`. */
+  hoverFull?: boolean
+  /** When true, each tick expands to full outline on focus-within. Requires parent to have `group`. */
+  focusFull?: boolean
   /** When true, uses 1px border instead of 2px (for small logo frames). Default: false */
   thin?: boolean
 }
 
-const { size = 'w-3 h-3', hoverSize, thin = false } = Astro.props
+const {
+  size = 'w-3 h-3',
+  hoverGrow = false,
+  hoverFull = false,
+  focusFull = false,
+  thin = false,
+} = Astro.props
 
 const bTop = thin ? 'border-t border-l' : 'border-t-2 border-l-2'
 const bRight = thin ? 'border-t border-r' : 'border-t-2 border-r-2'
 const bBottomLeft = thin ? 'border-b border-l' : 'border-b-2 border-l-2'
 const bBottomRight = thin ? 'border-b border-r' : 'border-b-2 border-r-2'
-const hoverClass = hoverSize
-  ? `transition-all duration-150 group-hover:${hoverSize}`
-  : ''
+
+const hoverClass = [
+  hoverGrow || hoverFull || focusFull ? 'transition-all duration-500' : '',
+  hoverGrow ? 'group-hover:w-[0.9375rem] group-hover:h-[0.9375rem]' : '',
+  hoverFull
+    ? 'group-hover:w-[calc(50%+1px)] group-hover:h-[calc(50%+1px)]'
+    : '',
+  focusFull
+    ? 'group-focus-within:!w-[calc(50%+1px)] group-focus-within:!h-[calc(50%+1px)]'
+    : '',
+]
+  .filter(Boolean)
+  .join(' ')
 ---
 
 <span

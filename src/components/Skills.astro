@@ -39,7 +39,7 @@ const offsets = ['mt-0', 'mt-8', 'mt-16', 'mt-4']
 
 <section
   id="skills"
-  class="px-6 py-32 md:px-12 md:py-40 border-t border-bp-border"
+  class="px-6 py-20 md:px-12 md:py-28 border-t border-bp-border"
 >
   <div class="max-w-screen-xl mx-auto">
     <BracketHeader
@@ -55,17 +55,17 @@ const offsets = ['mt-0', 'mt-8', 'mt-16', 'mt-4']
         skills.map((skill, index) => (
           <div
             class:list={[
-              'bp-grid-card group relative border border-bp-border p-8',
+              'bp-grid-card group relative border border-bp-border p-6 md:p-8 hover:border-bp-amber/20 transition-colors duration-300',
               offsets[index],
             ]}
             data-animate={index % 2 === 0 ? 'from-left' : 'from-right'}
             data-animate-delay={String(index * 80)}
           >
-            <CornerTicks hoverSize="w-4 h-4" />
+            <CornerTicks hoverFull />
 
             <div
-              class="absolute top-4 right-6 font-mono text-7xl font-bold text-bp-amber select-none pointer-events-none transition-opacity duration-150 group-hover:opacity-50"
-              style="opacity: 0.15;"
+              class="absolute top-4 right-6 font-mono text-7xl font-bold text-bp-amber select-none pointer-events-none transition-opacity duration-150 group-hover:opacity-[0.18]"
+              style="opacity: 0.08;"
               aria-hidden="true"
             >
               {skill.num}
@@ -74,7 +74,7 @@ const offsets = ['mt-0', 'mt-8', 'mt-16', 'mt-4']
             <h3 class="font-display text-3xl text-bp-text mb-4 relative z-10">
               {skill.title}
             </h3>
-            <p class="text-bp-text opacity-75 leading-relaxed text-sm relative z-10 mb-6">
+            <p class="font-body text-base text-bp-text opacity-75 leading-7 relative z-10 mb-6">
               {skill.text}
             </p>
             <div class="font-mono text-xs tracking-widest text-bp-steel relative z-10">

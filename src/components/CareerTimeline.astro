@@ -94,7 +94,7 @@ const milestones = [
             <div class="md:w-[18%] pl-4 md:pl-0 md:pr-8 md:text-right shrink-0 mb-2 md:mb-0">
               <span
                 class:list={[
-                  'font-mono text-3xl md:text-4xl leading-none font-bold',
+                  'font-mono text-3xl md:text-4xl leading-none',
                   m.typeColor === 'steel' ? 'text-bp-steel' : 'text-bp-amber',
                 ]}
               >
@@ -109,7 +109,7 @@ const milestones = [
 
             <div class="pl-8 md:pl-10 flex-1 border-l border-bp-border md:border-0">
               <h3 class="font-display text-2xl text-bp-text mb-2">{m.title}</h3>
-              <p class="text-bp-text opacity-75 leading-relaxed text-sm md:text-base mb-3 max-w-2xl">
+              <p class="font-body text-base text-bp-text opacity-75 leading-7 mb-3 max-w-2xl">
                 {m.description}
               </p>
               <div class="flex gap-4 font-mono text-xs tracking-widest">
